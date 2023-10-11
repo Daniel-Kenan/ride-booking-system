@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile - Cars</title>
+
+    <!-- Bulma is included -->
+    <link rel="stylesheet" href="css/main.min.css">
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <%- include('partials/TopNav.ejs') %>
+        <section class="hero is-hero-bar">
+            <div class="hero-body">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <h1 class="title">
+                                Cars
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="level-right" style="display: none;">
+                        <div class="level-item"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section is-main-section">
+            <div class="tile is-ancestor">
+                <div class="tile is-parent">
+                    <div class="card tile is-child">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                <a class="button is-primary" id="addcarBtn">Add New Vehicle</a>
+                            </p>
+                        </header>
+                        <!-- USER CARS -->
+                        <div class="card-content">
+                            <div class="card has-table">
+                                <header class="card-header">
+                                    <p class="card-header-title">
+                                        <span class="icon"><i class="mdi mdi-car"></i></span>
+                                        My Cars
+                                    </p>
+                                    <a href="#" class="card-header-icon">
+                                        <span class="icon"><i class="mdi mdi-reload"></i></span>
+                                    </a>
+                                </header>
+                                <div class="card-content">
+                                    <div class="b-table has-pagination">
+                                        <div class="table-wrapper has-mobile-cards">
+                                            <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="is-checkbox-cell">
+                                                            <label class="b-checkbox checkbox">
+                                                                <input type="checkbox" value="false">
+                                                                <span class="check"></span>
+                                                            </label>
+                                                        </th>
+                                                        <th></th>
+                                                        <th>Name</th>
+                                                        <th>Plate</th>
+                                                        <th>Status</th>
+                                                        <th>Destination Assigned</th>
+                                                        <th>Condition</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% for(var i=0; i<cars.length; i++) {%>
+                                                    <tr>
+                                                        <td class="is-checkbox-cell">
+                                                            <label class="b-checkbox checkbox">
+                                                                <input type="checkbox" value="false">
+                                                                <span class="check"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="is-image-cell">
+                                                            <div style="width: 60px;" class="image">
+                                                                <img src="<%= cars[i].imageUrl %>" class="is-rounded">
+                                                            </div>
+                                                        </td>
+                                                        <td data-label="Name"><%= cars[i].name %></td>
+                                                        <td data-label="Company"><%= cars[i].plate %></td>
+                                                        <td data-label="City"><%= cars[i].status %></td>
+                                                        <td data-label="destination">
+                                                            <%= cars[i].destination.name %>, 
+                                                            <%= cars[i].destination.addressline1 %>, 
+                                                            <%= cars[i].destination.addressline2 %>
+                                                        </td>
+                                                        <td data-label="Condition">
+                                                            <small class="has-text-grey is-abbr-like"
+                                                                title="Oct 25, 2020"><%= cars[i].condition %></small>
+                                                        </td>
+                                                        <td class="is-actions-cell">
+                                                            <div class="buttons is-right">
+                                                                <button class="button is-small is-primary"
+                                                                    type="button">
+                                                                    <span class="icon"><i
+                                                                            class="mdi mdi-eye"></i></span>
+                                                                </button>
+                                                                <button class="button is-small is-danger"
+                                                                    onclick="deleteCarConfirmation()" type="button">
+                                                                    <span class="icon"><i
+                                                                            class="mdi mdi-trash-can"></i></span>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- Car Details Modal -->
+                                                    <script>
+                                                        const deleteCarConfirmation = () => {
+                                                            Swal.fire({
+                                                                title: `Are you sure, You Want to delete?`,
+                                                                text: "You won't be able to revert this!",
+                                                                icon: 'warning',
+                                                                showCancelButton: true,
+                                                                confirmButtonColor: '#3085d6',
+                                                                cancelButtonColor: '#d33',
+                                                                confirmButtonText: 'Yes, delete it!'
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    Swal.fire(
+                                                                        'Deleted!',
+                                                                        'Your Car has been deleted.',
+                                                                        'success'
+                                                                    )
+                                                                }
+                                                            })
+                                                        }
+                                                    </script>
+                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="notification">
+                                            <div class="level">
+                                                <div class="level-left">
+                                                    <div class="level-item">
+                                                        <div class="buttons has-addons">
+                                                            <button type="button" class="button is-active">1</button>
+                                                            <button type="button" class="button">2</button>
+                                                            <button type="button" class="button">3</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="level-right">
+                                                    <div class="level-item">
+                                                        <small>Page 1 of <%=  cars.length%></small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END USER CARS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            © 2023 Infinite Techs
+                        </div>
+                        <div class="level-item">
+                            <a href="https://github.com/vikdiesel/admin-one-bulma-dashboard" style="height: 20px">
+                                <img
+                                    src="https://img.shields.io/github/v/release/vikdiesel/admin-one-bulma-dashboard?color=%23999">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <div class="logo">
+                                <a href="/"><img src="images/logo.png" width="60px" alt="JustBoil.me"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div id="sample-modal" class="modal">
+            <div class="modal-background jb-modal-close"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Confirm action</p>
+                    <button class="delete jb-modal-close" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <p>This will permanently delete <b>Some Object</b></p>
+                    <p>This is sample modal</p>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button jb-modal-close">Cancel</button>
+                    <button class="button is-danger jb-modal-close">Delete</button>
+                </footer>
+            </div>
+            <button class="modal-close is-large jb-modal-close" aria-label="close"></button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const addcarBtn = document.getElementById('addcarBtn')
+
+
+        addcarBtn.addEventListener('click', () =>{
+            Swal.fire({
+                title: `Add Car`,
+                html: `         
+                    <form action="/api/cars" id="addCarForm" method="post" class="box">   
+                        <div style="display:flex">
+                            <div class="field" style="width:40%;margin:5px">    
+                                <label class="label">Vehicle Name</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="name" id="name"  placeholder="Enter your car name">
+                                </div>
+                            </div>
+                            <div class="field" style="width:40%;margin:5px">    
+                                <label class="label">Plate</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="plate" id="plate"  placeholder="e.g XYZ 907 MP">
+                                </div>
+                            </div>
+                            <div class="field" style="width:20%;margin:5px">    
+                                <label class="label">Price / KM</label>
+                                <div class="control" style="display:flex">
+                                    <input class="input" type="number" name="bookingPrice"  id="bookingPrice" placeholder="Price / KM">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex">
+                            <div class="field" style=";margin:5px">    
+                                <label class="label">Condition</label>
+                                <div class="select" >
+                                    <select name='condition' id="condition">
+                                        <option>Select Car Condition:</option>
+                                        <option value="Good">Good</option>
+                                        <option value="Normal">Normal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="field" style=";margin:5px">   
+                            <label class="label">Initial Destination Assignment</label>
+                            <div class="select" >
+                            <select  name="destination_id" id="destination_id">
+                              <option value="">Select a location</option> 
+                              <% for(var i=0; i<destination_locations.length; i++) { %>                                        
+                                <option value="<%= destination_locations[i].id %>"><%= destination_locations[i].name %>, <%= destination_locations[i].addressline1 %>, <%= destination_locations[i].addressline2 %></option>
+                              <% } %>
+                              <!-- Add more options as needed -->
+                          </select>
+                          </div>
+                          </div>
+                        </div>
+                        <button id="submit" style="display:none" type="submit">Save</button>
+                    </form>          
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Save',
+                width: '60%',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('submit').click()
+                }
+            })
+        })
+
+
+    </script>
+    <!-- Scripts below are for demo only -->
+    <script type="text/javascript" src="javascripts/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+</body>
+
+</html>

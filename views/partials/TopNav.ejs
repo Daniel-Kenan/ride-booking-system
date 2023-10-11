@@ -1,0 +1,116 @@
+<nav id="navbar-main" class="navbar is-fixed-top">
+    <div class="navbar-brand">
+    <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
+        <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+      </a>
+      <a class="navbar-item" href="/home">
+        <img src="/images/logo.png">
+      </a>
+      <div class="navbar-item has-control">
+        <div class="control"><input placeholder="Search everywhere..." class="input"></div>
+      </div>
+
+    </div>
+    <div class="navbar-brand is-right">
+      <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
+        <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
+      </a>
+    </div>
+    <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
+      <div class="navbar-end">    
+        <% if (user.usertype == "Student") { %>
+        <a class="button is-primary" style="margin: 10px;" href="/ride-requests" title="About"
+        class="navbar-item has-divider is-desktop-icon-only">
+        <span class="icon"><i class="mdi mdi-car-wash"></i> </span>
+        <span>My Rides</span>
+        </a>
+        <h1 style="margin: 10px;" href="/ride-requests" title="number of requests today"
+        class="navbar-item has-divider is-desktop-icon-only">
+        <span class="icon"><i class="mdi mdi-car-wash"></i></span>
+        <span>Number of Ride requests today - <strong>(<span id="numberOfRideRequestToday"><%= numberOfRideRequestToday %></span>)</strong></span>
+        <% } %>
+        <% if (user.usertype == "Driver") { %>
+        <a class="button is-primary" style="margin: 10px;" href="/cars" title="About"
+        class="navbar-item has-divider is-desktop-icon-only">
+        <span class="icon"><i class="mdi mdi-car-wash"></i> </span>
+        <span>My Vehicles</span>
+        </a>
+        <h1 style="margin: 10px;" href="/ride-requests" title="number of requests today"
+        class="navbar-item has-divider is-desktop-icon-only">
+        <span class="icon"><i class="mdi mdi-car-wash"></i></span>
+        <span>Number of Ride requests today - <strong>(<span id="numberOfRideRequestToday"><%= numberOfRideRequestToday %></span>)</strong></span>
+        <% } %>
+      </h1>
+        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
+          <a class="navbar-link is-arrowless">
+            <span class="icon">
+              <i class="mdi mdi-menu"></i>
+            </span>
+            <span>Menu</span>
+            <span class="icon">
+              <i class="mdi mdi-chevron-down"></i>
+            </span>
+          </a>
+          <div class="navbar-dropdown">
+            <a href="/profile" class="navbar-item is-active">
+              <span class="icon"><i class="mdi mdi-account"></i></span>
+              <span>My Profile</span>
+            </a>
+        
+
+            <% if (user.userType == "Admin") { %>
+            <a href="/users" class="navbar-item">
+              <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+              <span>Users</span>
+            </a>
+            <a class="navbar-item" href="/cars">
+              <span class="icon"><i class="mdi mdi-car"></i></span>
+              <span>Cars</span>
+            </a>
+            <a class="navbar-item" href="/cars">
+              <span class="icon"><i class="mdi mdi-home-map-marker"></i></i></span>
+              <span>Residences</span>
+            </a>
+            <% } %>
+            <hr class="navbar-divider">
+            <a class="navbar-item" href="/logout">
+              <span class="icon"><i class="mdi mdi-logout"></i></span>
+              <span>Log Out</span>
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+          <a class="navbar-link is-arrowless">
+            <div class="is-user-avatar">
+              <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe">
+            </div>
+            <div class="is-user-name">
+              <span><%- user.name %> <%- user.surname %>(<%- user.usertype %>)</span>
+            </div>
+            <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+          </a>
+          <% if (user.usertype == "Student") %>
+          <div class="navbar-dropdown">
+            <a href="/profile" class="navbar-item is-active">
+              <span class="icon"><i class="mdi mdi-account"></i></span>
+              <span>My Profile</span>
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              <span class="icon"><i class="mdi mdi-logout"></i></span>
+              <span>Log Out</span>
+            </a>
+          </div>
+        </div>
+        <a href="https://justboil.me/bulma-admin-template/free-html-dashboard/" title="About"
+          class="navbar-item has-divider is-desktop-icon-only">
+          <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
+          <span>About</span>
+        </a>
+        <a title="Log out" href="/logout" class="navbar-item is-desktop-icon-only">
+          <span class="icon"><i class="mdi mdi-logout"></i></span>
+          <span>Log out</span>
+        </a>
+      </div>
+    </div>
+  </nav>

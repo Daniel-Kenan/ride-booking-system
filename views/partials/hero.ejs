@@ -1,0 +1,122 @@
+<style>
+    .hero {
+        background-image: url("/images/hero-background.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #glass {
+        /* From https://css.glass */
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.487);
+        backdrop-filter: blur(9.5px);
+        -webkit-backdrop-filter: blur(9.5px);
+        border: 0.5px solid rgba(255, 255, 255, 1);
+        padding: 20px;
+    }
+</style>
+
+<section class="hero is-primary is-fullheight">
+    <div class="hero-body">
+        <div class="container" id="glass">
+            <h1 class="title">
+                Welcome to Cap Central
+            </h1>
+            <h2 class="subtitle">
+                Book a ride with ease and convenience.
+            </h2>
+            <div class="map-container">
+                <!-- <iframe 
+                    style="border-radius: 8px;"
+                    class="gmap_iframe" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    src="https://maps.google.com/maps?width=1000&amp;height=800&amp;hl=en&amp;q=University%20of%20Mpumalanga&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                    width="1000"
+                    height="800"
+                ></iframe> -->
+            </div>
+            <a href="/auth/register" class="button is-rounded is-primary is-large">
+                Get Started
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image">
+                            <img src="images/vehicle1.jpg" alt="Vehicle 1">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title">Mercedees Sprinter Chassis</p>
+                        <p>Vehicle description and details go here.</p>
+                        <br>
+                        <button class="button is-danger">Currently Booked</button>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image">
+                            <img src="images/vehicle2.jpg" alt="Vehicle 2">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title">Toyota Quantum</p>
+                        <p>Guest Vehicle.</p>
+                        <br>
+                        <button class="button is-primary">Contact Driver</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Add similar code for the remaining cards -->
+            <div class="column">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image">
+                            <img src="images/vehicle3.jpg" alt="Vehicle 5">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title">Nissan NV350</p>
+                        <p class="subtitle">R40/km</p>
+                        <p>Only Available for students</p>
+                        <br>
+                        <button class="button is-primary">Book Ride</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="hero is-primary is-fullheight">
+    <div class="hero-body">
+        <div class="container" >
+            <h1 class="title">
+                I want to become A Driver
+            </h1>
+            <h2 class="subtitle">
+                You can register to become a student driver or guest driver
+            </h2>
+            <a href="/auth/register" class="button is-rounded is-primary is-large">
+                Register as A Student
+            </a>
+            <a href="/auth/register" class="button is-rounded is-primary is-large">
+                Register as A Taxi Driver
+            </a>
+        </div>
+    </div>
+</section>
+

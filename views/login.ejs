@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentication Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Include any additional styles or scripts -->
+</head>
+<body>
+    <section class="hero is-fullheight" style="background-image: url('/images/taxi-background.jpg'); background-size: cover;">
+        <div class="hero-body" st>
+            <div class="container has-text-centered">
+                <div class="columns is-centered">
+                    <div class="column is-one-third">
+
+                        <div class="box">
+                            <img src="/images/logo.png" alt="" width="80px" srcset="">
+                            <h1 class="title">Login</h1>
+                            <form action="/api/login" method="post">
+                                <div class="field">
+                                    <label class="label">Email</label>
+                                    <div class="control">
+                                        <input class="input" name="email" type="email" placeholder="Enter your Email">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Password</label>
+                                    <div class="control">
+                                        <input class="input" name="password" type="password" placeholder="Enter your Password">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <p>Don't Have an account ? <a href="/auth/register">Register a new Account</a></p>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <button class="button is-primary">Login</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

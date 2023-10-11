@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Authentication Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- Include any additional styles or scripts -->
+</head>
+
+<body>
+    <section class="hero is-fullheight" style="background-image: url('/images/taxi-background.jpg'); background-size: cover;">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-centered">
+                    <div class="column is-one-third">
+
+                        <div class="box">
+                            <img src="/images/logo.png" alt="" width="80px" srcset="">
+                            <h1 class="title">Register</h1>
+                            <form action="/api/register" method="post">
+                                <div class="field">
+                                    <label class="label">National ID</label>
+                                    <div class="control">
+                                        <input class="input" name="drivercode" type="text"
+                                            placeholder="Enter your NationalId">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Name</label>
+                                    <div class="control">
+                                        <input class="input" name="name" type="text" placeholder="Enter your name">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Surname</label>
+                                    <div class="control">
+                                        <input class="input" name="surname" type="text" placeholder="Enter your name">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">User Type</label>
+                                    <div class="select is-primary">
+                                        <select name="usertype">
+                                            <option value="Student">Student</option>
+                                            <option value="Driver">Taxi Driver</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Email</label>
+                                    <div class="control">
+                                        <input class="input" name="email" type="email" placeholder="Enter your email">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Phone</label>
+                                    <div class="control">
+                                        <input class="input" name="phone" type="text" placeholder="Enter your Phone">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Password</label>
+                                    <div class="control">
+                                        <input class="input" name="password" type="password"
+                                            placeholder="Enter your password">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label class="label">Confirm Password</label>
+                                    <div class="control">
+                                        <input class="input" type="password" placeholder="Re-Enter your password">
+                                    </div>
+                                </div>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="terms">
+                                    I agree to the <a id="terms">terms and conditions</a>
+                                </label>
+
+                                <div class="field">
+                                    <p>I already have an account ? <a href="/auth/login">Login Instead</a></p>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">Register</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Scripts below are for demo only -->
+    <script type="text/javascript" src="javascripts/main.min.js"></script>
+    <script src="
+  https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js
+  "></script>
+    <link href="
+  https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.min.css
+  " rel="stylesheet">
+    <script>
+        document.getElementById('terms').addEventListener('click', () => {
+            Swal.fire({
+                title: '<strong>Cap Central</strong>',
+                icon: 'info',
+                html: `
+                
+                <section class="section">
+    <div class="container">
+      <h1 class="title is-1">Cap Central Terms and Conditions</h1>
+
+      <h2 class="title is-3">For Drivers</h2>
+      <p>
+        As an Cap Central driver, you agree to the following terms and conditions:
+      </p>
+      <ul>
+        <li>You must possess a valid driver's license and meet all legal requirements to operate a vehicle.</li>
+        <li>You are responsible for maintaining your vehicle in good working condition and meeting all safety standards.</li>
+        <li>You agree to provide transportation services to Cap Central users in a professional and courteous manner.</li>
+        <li>You will comply with all applicable laws and regulations regarding transportation services.</li>
+        <li>You will maintain proper insurance coverage for your vehicle as required by local laws.</li>
+      </ul>
+
+      <h2 class="title is-3">For Users</h2>
+      <p>
+        As an Cap Central user, you agree to the following terms and conditions:
+      </p>
+      <ul>
+        <li>You will use the Cap Central platform for legitimate transportation needs.</li>
+        <li>You will treat drivers with respect and adhere to any additional rules or guidelines provided by Cap Central.</li>
+        <li>You will not engage in any illegal or harmful activities during your ride.</li>
+        <li>You will provide accurate and up-to-date information when using the Cap Central platform.</li>
+        <li>You will follow all applicable laws and regulations while using Cap Central's services.</li>
+      </ul>
+    </div>
+  </section>           
+                `,
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+            
+                cancelButtonText: '<i class="fa fa-thumbs-down"></i>',
+                cancelButtonAriaLabel: 'Thumbs down'
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" class="has-aside-left has-aside-mobile-transition has-navbar-fixed-top has-aside-expanded">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile - Users</title>
+
+  <!-- Bulma is included -->
+  <link rel="stylesheet" href="css/main.min.css">
+  <!-- Fonts -->
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+  <div id="app">
+    <nav id="navbar-main" class="navbar is-fixed-top">
+      <div class="navbar-brand">
+        <a class="navbar-item is-hidden-desktop jb-aside-mobile-toggle">
+          <span class="icon"><i class="mdi mdi-forwardburger mdi-24px"></i></span>
+        </a>
+        <a class="navbar-item" href="/">
+          <img src="/images/logo.png">
+        </a>
+        <div class="navbar-item has-control">
+          <div class="control"><input placeholder="Search everywhere..." class="input"></div>
+        </div>
+
+      </div>
+      <div class="navbar-brand is-right">
+        <a class="navbar-item is-hidden-desktop jb-navbar-menu-toggle" data-target="navbar-menu">
+          <span class="icon"><i class="mdi mdi-dots-vertical"></i></span>
+        </a>
+      </div>
+      <div class="navbar-menu fadeIn animated faster" id="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider is-hoverable">
+            <a class="navbar-link is-arrowless">
+              <span class="icon">
+                <i class="mdi mdi-menu"></i>
+              </span>
+              <span>Menu</span>
+              <span class="icon">
+                <i class="mdi mdi-chevron-down"></i>
+              </span>
+            </a>
+            <div class="navbar-dropdown">
+              <a href="/profile" class="navbar-item is-active">
+                <span class="icon"><i class="mdi mdi-account"></i></span>
+                <span>My Profile</span>
+              </a>
+              <a href="/users" class="navbar-item">
+                <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
+                <span>Users</span>
+              </a>
+              <a class="navbar-item" href="/cars">
+                <span class="icon"><i class="mdi mdi-car"></i></span>
+                <span>Cars</span>
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="/logout">
+                <span class="icon"><i class="mdi mdi-logout"></i></span>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+          <div class="navbar-item has-dropdown has-dropdown-with-icons has-divider has-user-avatar is-hoverable">
+            <a class="navbar-link is-arrowless">
+              <div class="is-user-avatar">
+                <img src="https://avatars.dicebear.com/v2/initials/john-doe.svg" alt="John Doe">
+              </div>
+              <div class="is-user-name">
+                <span><%- user.name %> <%- user.surname %></span>
+              </div>
+              <span class="icon"><i class="mdi mdi-chevron-down"></i></span>
+            </a>
+            <div class="navbar-dropdown">
+              <a href="/profile" class="navbar-item is-active">
+                <span class="icon"><i class="mdi mdi-account"></i></span>
+                <span>My Profile</span>
+              </a>
+              <a class="navbar-item">
+                <span class="icon"><i class="mdi mdi-settings"></i></span>
+                <span>Settings</span>
+              </a>
+              <a class="navbar-item">
+                <span class="icon"><i class="mdi mdi-email"></i></span>
+                <span>Messages</span>
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                <span class="icon"><i class="mdi mdi-logout"></i></span>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+          <a href="https://justboil.me/bulma-admin-template/free-html-dashboard/" title="About"
+            class="navbar-item has-divider is-desktop-icon-only">
+            <span class="icon"><i class="mdi mdi-help-circle-outline"></i></span>
+            <span>About</span>
+          </a>
+          <a title="Log out" href="/logout" class="navbar-item is-desktop-icon-only">
+            <span class="icon"><i class="mdi mdi-logout"></i></span>
+            <span>Log out</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <section class="hero is-hero-bar">
+      <div class="hero-body">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <h1 class="title">
+                Cars
+              </h1>
+            </div>
+          </div>
+          <div class="level-right" style="display: none;">
+            <div class="level-item"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section is-main-section">
+      <div class="tile is-ancestor">
+        <div class="tile is-parent">
+          <div class="card tile is-child">
+            <header class="card-header">
+              <p class="card-header-title">
+                <span class="icon"><i class="mdi mdi-account-circle default"></i></span>
+                Users
+              </p>
+            </header>
+            <!-- USER CARS -->
+            <div class="card-content">
+              <div class="card has-table">
+                <header class="card-header">
+                  <p class="card-header-title">
+                    <span class="icon"><i class="mdi mdi-car"></i></span>
+                    All Users
+                  </p>
+                  <a href="#" class="card-header-icon">
+                    <span class="icon"><i class="mdi mdi-reload"></i></span>
+                  </a>
+                </header>
+                <div class="card-content">
+                  <div class="b-table has-pagination">
+                    <div class="table-wrapper has-mobile-cards">
+                      <table class="table is-fullwidth is-striped is-hoverable is-fullwidth">
+                        <thead>
+                          <tr>
+                            <th class="is-checkbox-cell">
+                              <label class="b-checkbox checkbox">
+                                <input type="checkbox" value="false">
+                                <span class="check"></span>
+                              </label>
+                            </th>
+                            <th>Driver Code</th>
+                            <th>Full Name</th>
+                            <th>User Type</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% for(var i=0; i<users.length; i++) {%>
+                          <tr>
+                            <td class="is-checkbox-cell">
+                              <label class="b-checkbox checkbox">
+                                <input type="checkbox" value="false">
+                                <span class="check"></span>
+                              </label>
+                            </td>
+                            
+                            <td data-label="DriverCode"><%= users[i].drivercode %></td>
+                            <td data-label="FullName"><%= users[i].name %> <%= users[i].surname %></td>
+                            <td data-label="Company"><%= users[i].usertype %></td>
+                            <td data-label="Price">R<%= users[i].email %></td>
+                            <td data-label="City"><input class="input" type="password" name="" id="" value="<%= users[i].password %>"> </td>
+                            <td class="is-actions-cell">
+                              <div class="buttons is-right">
+                                <button class="button is-small is-primary" type="button">
+                                  <span class="icon"><i class="mdi mdi-eye"></i></span>
+                                </button>
+                                <button class="button is-small is-danger" onclick="deleteCarConfirmation()"
+                                  type="button">
+                                  <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <!-- Car Details Modal -->
+                          <script>
+                            
+
+
+                            const deleteCarConfirmation = () => {
+                              
+                              Swal.fire({
+                                title: `Are you sure, You Want to delete?`,
+                                text: "You won't be able to revert this!",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, delete it!'
+                              }).then((result) => {
+                                if (result.isConfirmed) {
+                                  Swal.fire(
+                                    'Deleted!',
+                                    'Your Car has been deleted.',
+                                    'success'
+                                  )
+                                }
+                              })
+                            }
+                          </script>
+                          <% } %>
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="notification">
+                      <div class="level">
+                        <div class="level-left">
+                          <div class="level-item">
+                            <div class="buttons has-addons">
+                              <button type="button" class="button is-active">1</button>
+                              <button type="button" class="button">2</button>
+                              <button type="button" class="button">3</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="level-right">
+                          <div class="level-item">
+                            <small>Page 1 of <%=  users.length%></small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- END USER users -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              © 2023 Infinite Techs
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <div class="logo">
+                <a href="/"><img src="images/logo.png" width="60px" alt="JustBoil.me"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts below are for demo only -->
+  <script type="text/javascript" src="javascripts/main.min.js"></script>
+  <script src="
+  https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.all.min.js
+  "></script>
+  <link href="
+  https://cdn.jsdelivr.net/npm/sweetalert2@11.7.18/dist/sweetalert2.min.css
+  " rel="stylesheet">
+  <!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+</body>
+
+</html>
