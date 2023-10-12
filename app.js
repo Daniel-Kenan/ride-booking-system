@@ -44,7 +44,7 @@ var authRouterLogin = require('./routes/login');
 let adminUser = {
   id : 1,
   drivercode : 'USER100',
-  name: 'Oscar',
+  name: 'Cab ',
   surname: 'TeJayy',
   usertype:userTypes.admin,
   email: 'admin@infinite.com',
