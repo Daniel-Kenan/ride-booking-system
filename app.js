@@ -199,9 +199,9 @@ users.push(StudentUser);
 users.push(StudentUser2);
 users.push(DriverUser1);
 users.push(DriverUser2);
-cars.push(adminCar);
-cars.push(adminCar);
-cars.push(userCar);
+// cars.push(adminCar);
+// cars.push(adminCar);
+// cars.push(userCar);
 
 var app = express();
 // view engine setup
