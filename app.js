@@ -274,33 +274,47 @@ app.get('/api/ride-request/opened/:req_id', (req, res) => {
 });
 
 app.post('/api/ride-request', (req, res) => {
-
   const User = req.session.user;
   console.log("New Ride Request Incoming ", req.body)
 
-  if(User.usertype === userTypes.student){
-    const {pickupLocation, destination_id} = req.body;
+  if (User.usertype === userTypes.student) {
+    const { pickupLocation, destination_id } = req.body;
     let id = rideRequests.length + 1;
-    let status = rideStatus.requested
-    let requestDate = new Date()
-    const AvailableCarsToSelectedDestination = cars.filter(car => car.dest_id === parseInt(destination_id))
-    AvailableCarsToSelectedDestination[AvailableCarsToSelectedDestination.length -1].seats = AvailableCarsToSelectedDestination[AvailableCarsToSelectedDestination.length -1].seats - 1
-    const destination = destination_locations.find(dest => dest.id === parseInt(destination_id))
-    const newRideRequest = {
-      id, 
-      requester : User.id , 
-      selectedDriverCode : AvailableCarsToSelectedDestination[AvailableCarsToSelectedDestination.length -1].drivercode, 
-      car: AvailableCarsToSelectedDestination[AvailableCarsToSelectedDestination.length-1],
-      requestDate,
-      pickupLocation, 
-      destination, 
-      status, 
-      requesterObject : User 
+    let status = rideStatus.requested;
+
+    const AvailableCarsToSelectedDestination = cars.filter(car => car.dest_id === parseInt(destination_id));
+
+    if (AvailableCarsToSelectedDestination.length > 0) {
+      const lastCar = AvailableCarsToSelectedDestination[AvailableCarsToSelectedDestination.length - 1];
+
+      if (lastCar.seats) {
+        lastCar.seats = lastCar.seats - 1;
+
+        const destination = destination_locations.find(dest => dest.id === parseInt(destination_id));
+
+        const newRideRequest = {
+          id,
+          requester: User.id,
+          selectedDriverCode: lastCar.drivercode,
+          car: lastCar,
+          requestDate: new Date(),
+          pickupLocation,
+          destination,
+          status,
+          requesterObject: User,
+        };
+
+        console.log(newRideRequest);
+        rideRequests.push(newRideRequest);
+      } else {
+        console.error('Seats property is undefined for the last available car.');
+      }
+    } else {
+      console.error('No available cars for the selected destination.');
     }
-    console.log(newRideRequest)   
-    rideRequests.push(newRideRequest);
   }
-  res.redirect('/home')
+
+  res.redirect('/home');
 });
 app.get('/ride-requests', (req, res) => {
   let UserRideRequests = []
@@ -662,4 +676,11 @@ app.get('/distance', function(req, res) {
   let b = { lat: req.user.lat, lon: req.user.long }
   return calculateDistance(a, b)
 })
+
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 module.exports = app;
