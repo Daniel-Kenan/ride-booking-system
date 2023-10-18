@@ -25,11 +25,11 @@
             .then(response => response.json())
             .then(data => {
                 console.log(data.message);
-                alert(data.message);
+                console.log(data.message);
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error sending coordinates to the server');
+                console.log('Error sending coordinates to the server');
             });
         }
 
@@ -44,10 +44,10 @@
                 sendCoordinatesToServer(latitude, longitude);
             }, function(error) {
                 console.error('Error getting location:', error);
-                alert('Error getting location. Please allow geolocation access.');
+                console.log('Error getting location. Please allow geolocation access.');
             });
         } else {
-            alert("Geolocation is not available in this browser.");
+            console.log("Geolocation is not available in this browser.");
         }
   </script>
 </head>

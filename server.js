@@ -13,15 +13,10 @@ const userTypes = {
   driver : 'Driver'
 }
 
-
 let driver  = {lat: null, long:null } 
-
-
-
-
-
 let users = []
 let cars = []
+
 let rideRequests = []
 
 const rideStatus = {
@@ -50,7 +45,6 @@ let adminUser = {
   email: 'admin@infinite.com',
   password: 'admin'
 }
-
 let StudentUser = {
   id : 2,
   drivercode : 'None',
@@ -62,7 +56,7 @@ let StudentUser = {
   password: 'student'
 }
 let StudentUser2 = {
-  id : 3,
+  id : 3, 
   drivercode : 'None',
   name: 'Victor',
   surname: 'Mahluza',
@@ -70,8 +64,6 @@ let StudentUser2 = {
   email: 'victor@infinite.com',
   password: '123'
 }
-
-
 let DriverUser1 = {
   id : 4,
   drivercode : 'USER200',
@@ -82,7 +74,6 @@ let DriverUser1 = {
   email: 'driver@infinite.com',
   password: 'driver2'
 }
-
 let DriverUser2 = {
   id : 5,
   drivercode : 'USER201',
@@ -94,43 +85,7 @@ let DriverUser2 = {
   password: 'student'
 }
 
-let DriverUser3 = {
-  id : 6,
-  drivercode : 'USER202',
-  name: 'Andile1',
-  surname: 'Masilela1',
-  usertype: userTypes.driver,
-  email: 'student@infinite.com',
-  password: 'student'
-}
 
-let DriverUser4 = {
-  id : 7,
-  drivercode : 'USER203',
-  name: 'Andile',
-  surname: 'Masilela',
-  usertype: userTypes.driver,
-  email: 'student@infinite.com',
-  password: 'student'
-}
-let DriverUser5 = {
-  id : 8,
-  drivercode : 'USER204',
-  name: 'Andile',
-  surname: 'Masilela',
-  usertype: userTypes.student,
-  email: 'student@infinite.com',
-  password: 'student'
-}
-let DriverUser6 = {
-  id : 9,
-  drivercode : 'USER205',
-  name: 'Andile',
-  surname: 'Masilela',
-  usertype: userTypes.student,
-  email: 'student@infinite.com',
-  password: 'student'
-}
 
 let adminCar = {
   id : 1,
@@ -154,7 +109,6 @@ let userCar = {
   seats : 15,
   imageUrl: 'images/vehicle2.jpg'
 }
-
 let destination_locations = [];
 
 const demLocation = {
@@ -199,9 +153,9 @@ users.push(StudentUser);
 users.push(StudentUser2);
 users.push(DriverUser1);
 users.push(DriverUser2);
-// cars.push(adminCar);
-// cars.push(adminCar);
-// cars.push(userCar);
+cars.push(adminCar);
+cars.push(adminCar);
+cars.push(userCar);
 
 var app = express();
 // view engine setup
@@ -228,7 +182,6 @@ app.use('/', indexRouter);
 app.use('/auth', authRouterRegister);
 app.use('/auth', authRouterLogin);
 
-
 function calculateDistance({ lat: lat1, lon: lon1 }, { lat: lat2, lon: lon2 }) {
   // Radius of the Earth in kilometers
   const earthRadius = 6371; // Approximate value, you can use a more accurate radius if needed
@@ -252,10 +205,6 @@ function calculateDistance({ lat: lat1, lon: lon1 }, { lat: lat2, lon: lon2 }) {
 
   return distance; // Distance in kilometers
 }
-
-
-
-
 // START OF RIDE REQUESTS
 app.get('/api/ride-request/accept/:req_id', (req, res) => {
   if (req.session.user) {
@@ -522,6 +471,7 @@ function GetCurrentDateMatch(){
 }
 
 app.get('/home', (req, res) => {
+  console.log(cars)
   if (req.session.user) {
     console.log('You are logged in => ' , (req.session.user.usertype === userTypes.admin))
     if (req.session.user.usertype === userTypes.student) {
@@ -572,6 +522,15 @@ app.get('/home', (req, res) => {
       return req.session.user.drivercode === ride.selectedDriverCode
     })
     const numberOfRideRequestToday = UserRideRequests.length
+    for (let car of cars) {
+      for (let user of users) {
+          if (user.drivercode === car.drivercode) {
+            user.car = car
+            car.user = user
+            console.log(car)
+          }
+      }
+  }
     return res.render('home-admin', {
       user : req.session.user,
       cars : cars,
@@ -655,11 +614,85 @@ app.get('/users', (req, res) => {
 })
 
 // catch 404 and forward to error handler
+
+
+// error handler
+
+app.get('/distance', function(req, res) {
+
+  let a = { lat: driver.lat, lon: driver.long }
+  let b = { lat: req.user.lat, lon: req.user.long }
+  return calculateDistance(a, b)
+})
+
+
+
+app.get('/api/cars/delete/:plate', (req, res) => {
+  console.log("I am on Delete")
+  const plate = req.params.plate;
+  // Find the index of the car with the specified plate
+  const carIndex = cars.findIndex(car => {
+    console.log(car.plate , plate)
+    return car.plate === plate
+  });
+
+  if (carIndex !== -1) {
+    // Car found, remove it from the array
+    const deletedCar = cars.splice(carIndex, 1)[0];
+    console.log(deletedCar);
+    res.json({ success: true, deletedCar });
+  } else {
+    // Car not found
+    res.status(404).json({ success: false, message: 'Car not found' });
+  }
+});
+
+app.get('/api/users/delete/:name', (req, res) => {
+  console.log("I am on Delete")
+  const plate = req.params.plate;
+  // Find the index of the car with the specified plate
+  const carIndex = cars.findIndex(car => {
+    console.log(car.plate , plate)
+    return car.plate === plate
+  });
+
+  if (carIndex !== -1) {
+    // Car found, remove it from the array
+    const deletedCar = cars.splice(carIndex, 1)[0];
+    console.log(deletedCar);
+    res.json({ success: true, deletedCar });
+  } else {
+    // Car not found
+    res.status(404).json({ success: false, message: 'Car not found' });
+  }
+});
+
+
+app.get('/api/users/:id', (req, res) => {
+  const userIdToDelete = parseInt(req.params.id);
+
+  // Find the index of the user with the specified ID
+  const userIndex = users.findIndex(user => user.id === userIdToDelete);
+
+  if (userIndex !== -1) {
+    // User found, remove it from the array
+    const deletedUser = users.splice(userIndex, 1)[0];
+    console.log(deletedUser);
+    // res.json({ success: true, deletedUser });
+    return res.redirect("/home")
+  } else {
+    // User not found
+    res.status(404).json({ success: false, message: 'User not found' });
+  }
+});
+
+
+const port = process.env.PORT || 3000;
+
 app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -670,17 +703,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/distance', function(req, res) {
 
-  let a = { lat: driver.lat, lon: driver.long }
-  let b = { lat: req.user.lat, lon: req.user.long }
-  return calculateDistance(a, b)
-})
-
-
-const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-
-
