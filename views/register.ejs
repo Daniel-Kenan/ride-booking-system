@@ -57,11 +57,34 @@
                                 <div class="field">
                                     <label class="label">Phone</label>
                                     <div class="control">
-                                        <input class="input" name="phone" type="number"
+                                        <input class="input" name="phone" type="text"
                                         pattern="[0-9]{10}" maxlength="10" required
                                         title="Please enter a 10-digit phone number"
                                         placeholder="Enter your Phone"
+                                        oninput="validatePhoneNumber(this)"
                                         style="padding: 8px; margin: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                                 
+                                 <script>
+                                 function validatePhoneNumber(input) {
+                                     // Remove non-numeric characters
+                                     let phoneNumber = input.value.replace(/\D/g, '');
+                                 
+                                     // Limit the length to 10 digits
+                                     phoneNumber = phoneNumber.substring(0, 10);
+                                 
+                                     // Format the value as a phone number (optional)
+                                     const formattedPhoneNumber = formatPhoneNumber(phoneNumber);
+                                 
+                                     // Update the input value
+                                     input.value = formattedPhoneNumber;
+                                 }
+                                 
+                                 function formatPhoneNumber(phoneNumber) {
+                                     // Format the phone number as needed (e.g., add dashes)
+                                     // You can customize this part based on your requirements
+                                     return phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+                                 }
+                                 </script>
                                     </div>
                                 </div>
                                 <div class="field">
