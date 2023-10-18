@@ -250,7 +250,7 @@ if (foundUser) {
     }
 });
 } else {
-    return res.send(`User with email ${emailToFind} not found.`);
+    return res.send(`User with email ${email} not found.`);
 }
 
   
