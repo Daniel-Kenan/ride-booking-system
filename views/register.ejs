@@ -105,29 +105,26 @@
                                         // Get references to the password and confirm password input fields
                                         const passwordInput = document.getElementById('password');
                                         const confirmPasswordInput = document.getElementById('confirmPassword');
-                            
-                                        // Add an event listener to the password input for real-time validation
-                                        passwordInput.addEventListener('input', function () {
-                                            validatePasswordMatch();
-                                        });
-                            
-                                        // Add an event listener to the confirm password input for real-time validation
-                                        confirmPasswordInput.addEventListener('input', function () {
-                                            validatePasswordMatch();
-                                        });
-                            
+                                        const submitButton = document.querySelector('button[type="submit"]');
+                                
+                                        // Add event listeners to the password and confirm password inputs for real-time validation
+                                        passwordInput.addEventListener('input', validatePasswordMatch);
+                                        confirmPasswordInput.addEventListener('input', validatePasswordMatch);
+                                
                                         // Function to validate if the passwords match
                                         function validatePasswordMatch() {
                                             const password = passwordInput.value;
                                             const confirmPassword = confirmPasswordInput.value;
-                            
+                                
                                             // Check if the passwords match
                                             if (password === confirmPassword) {
-                                                // If they match, update the styling (you can add your own styling logic)
+                                                // If they match, enable the submit button and remove the 'is-danger' class
                                                 confirmPasswordInput.classList.remove('is-danger');
+                                                submitButton.removeAttribute('disabled');
                                             } else {
-                                                // If they don't match, update the styling (you can add your own styling logic)
+                                                // If they don't match, disable the submit button and add the 'is-danger' class
                                                 confirmPasswordInput.classList.add('is-danger');
+                                                submitButton.setAttribute('disabled', 'true');
                                             }
                                         }
                                     });
