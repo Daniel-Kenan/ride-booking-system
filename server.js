@@ -214,6 +214,7 @@ app.get('/api/ride-request/accept/:req_id', (req, res) => {
   }else{ return res.redirect('/auth/login')}
 });
 
+app.get('/app', (req, res) => res.render("page"))
 app.get('/api/ride-request/opened/:req_id', (req, res) => {
   if (req.session.user) {
     const rideRequest = rideRequests.find(ride => parseInt(ride.id) === parseInt(req.params.req_id));
@@ -670,8 +671,7 @@ app.get('/api/users/delete/:name', (req, res) => {
 
 app.get('/api/users/:id', (req, res) => {
   const userIdToDelete = parseInt(req.params.id);
-
-  // Find the index of the user with the specified ID
+  // Find the index of the user with the specif
   const userIndex = users.findIndex(user => user.id === userIdToDelete);
 
   if (userIndex !== -1) {

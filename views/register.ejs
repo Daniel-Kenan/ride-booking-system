@@ -21,8 +21,10 @@
                                 <div class="field">
                                     <label class="label">National ID</label>
                                     <div class="control">
-                                        <input class="input" name="drivercode" type="text"
-                                            placeholder="Enter your NationalId">
+                                        <input class="number" name="drivercode" type="text"
+       pattern="[0-9]{13}" maxlength="13" required
+       title="Please enter a 13-digit number"
+       placeholder="Enter your National ID">
                                     </div>
                                 </div>
                                 <div class="field">
@@ -34,7 +36,7 @@
                                 <div class="field">
                                     <label class="label">Surname</label>
                                     <div class="control">
-                                        <input class="input" name="surname" type="text" placeholder="Enter your name">
+                                        <input class="input" name="surname" type="text" placeholder="Enter your Surname">
                                     </div>
                                 </div>
                                 <div class="field">
