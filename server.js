@@ -325,7 +325,7 @@ app.post('/api/login', (req, res) => {
     console.log('Session: ', req.session.user);
     res.redirect('/home'); // Redirect to the dashboard or any other authenticated page
   } else {
-    res.redirect('/auth/login'); // Redirect back to the login page if login fails
+    res.render("login",{error:"Invalid Credentials"}); // Redirect back to the login page if login fails
   }
 });
 
