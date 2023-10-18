@@ -213,7 +213,14 @@ app.get('/api/ride-request/accept/:req_id', (req, res) => {
     return res.redirect('/home')
   }else{ return res.redirect('/auth/login')}
 });
+app.get('/forgot-password', (req, res) => res.render("forgot-password.ejs"))
+app.post('/reset-password', (req, res) => {
+  const email = req.body.email;
 
+  const message = `Password reset requested for ${email}. Implement your logic here.`;
+
+  res.send(message);
+});
 app.get('/app', (req, res) => res.render("page"))
 app.get('/api/ride-request/opened/:req_id', (req, res) => {
   if (req.session.user) {
