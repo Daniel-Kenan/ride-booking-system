@@ -7,6 +7,19 @@ var logger = require('morgan');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 
+
+const nodemailer = require('nodemailer');
+
+// Create a transporter using your Gmail credentials
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'botauto212@gmail.com',
+        pass: 'cjeifgsiqfivevdx'
+    }
+});
+
+
 const userTypes = {
   student : 'Student',
   admin : 'Admin',
@@ -217,9 +230,21 @@ app.get('/forgot-password', (req, res) => res.render("forgot-password.ejs"))
 app.post('/reset-password', (req, res) => {
   const email = req.body.email;
 
-  const message = `Password reset requested for ${email}. Implement your logic here.`;
-
+  const message = `Password reset requested for ${email}. Please check your inbox.`;
+  const mailOptions = {
+    from: 'botauto212@gmail.com',
+    to: email,
+    subject: 'Password Recovery',
+    text: message
+};
   res.send(message);
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log('Email sent: ' + info.response);
+    }
+});
 });
 app.get('/app', (req, res) => res.render("page"))
 app.get('/api/ride-request/opened/:req_id', (req, res) => {
