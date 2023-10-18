@@ -230,12 +230,16 @@ app.get('/forgot-password', (req, res) => res.render("forgot-password.ejs"))
 app.post('/reset-password', (req, res) => {
   const email = req.body.email;
 
+
+  const foundUser = findUserByEmail(email);
+
+if (foundUser) {
   const message = `Password reset requested for ${email}. Please check your inbox.`;
   const mailOptions = {
     from: 'botauto212@gmail.com',
     to: email,
     subject: 'Password Recovery',
-    text: message
+    text: `Password reset requested for ${email}. ` + `Password: ${foundUser.password}`  
 };
   res.send(message);
   transporter.sendMail(mailOptions, (error, info) => {
@@ -245,6 +249,12 @@ app.post('/reset-password', (req, res) => {
         console.log('Email sent: ' + info.response);
     }
 });
+} else {
+    return res.send(`User with email ${emailToFind} not found.`);
+}
+
+  
+ 
 });
 app.get('/app', (req, res) => res.render("page"))
 app.get('/api/ride-request/opened/:req_id', (req, res) => {
@@ -386,7 +396,9 @@ app.post('/api/users/update', (req, res) => {
   res.redirect('/profile')
 })
 
-
+function findUserByEmail(email) {
+    return users.find(user => user.email === email) || null;
+}
 app.post('/coordinates', (req, res) => {
   const { latitude, longitude } = req.body;
   
