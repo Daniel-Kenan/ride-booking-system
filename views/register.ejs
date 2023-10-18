@@ -57,7 +57,11 @@
                                 <div class="field">
                                     <label class="label">Phone</label>
                                     <div class="control">
-                                        <input class="input" name="phone" type="text" placeholder="Enter your Phone">
+                                        <input class="input" name="phone" type="text"
+                                        pattern="[0-9]{10}" maxlength="10" required
+                                        title="Please enter a 10-digit phone number"
+                                        placeholder="Enter your Phone"
+                                        style="padding: 8px; margin: 5px; border: 1px solid #ccc; border-radius: 4px;">
                                     </div>
                                 </div>
                                 <div class="field">
