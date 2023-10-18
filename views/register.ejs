@@ -90,45 +90,16 @@
                                 <div class="field">
                                     <label class="label">Password</label>
                                     <div class="control">
-                                        <input class="input" name="password" id="password" type="password" placeholder="Enter your password">
+                                        <input class="input" name="password" type="password"
+                                            placeholder="Enter your password">
                                     </div>
                                 </div>
                                 <div class="field">
                                     <label class="label">Confirm Password</label>
                                     <div class="control">
-                                        <input class="input" name="confirmPassword" id="confirmPassword" type="password" placeholder="Re-Enter your password">
+                                        <input class="input" type="password" placeholder="Re-Enter your password">
                                     </div>
                                 </div>
-                            
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function () {
-                                        // Get references to the password and confirm password input fields
-                                        const passwordInput = document.getElementById('password');
-                                        const confirmPasswordInput = document.getElementById('confirmPassword');
-                                        const submitButton = document.querySelector('button[type="submit"]');
-                                
-                                        // Add event listeners to the password and confirm password inputs for real-time validation
-                                        passwordInput.addEventListener('input', validatePasswordMatch);
-                                        confirmPasswordInput.addEventListener('input', validatePasswordMatch);
-                                
-                                        // Function to validate if the passwords match
-                                        function validatePasswordMatch() {
-                                            const password = passwordInput.value;
-                                            const confirmPassword = confirmPasswordInput.value;
-                                
-                                            // Check if the passwords match
-                                            if (password === confirmPassword) {
-                                                // If they match, enable the submit button and remove the 'is-danger' class
-                                                confirmPasswordInput.classList.remove('is-danger');
-                                                submitButton.removeAttribute('disabled');
-                                            } else {
-                                                // If they don't match, disable the submit button and add the 'is-danger' class
-                                                confirmPasswordInput.classList.add('is-danger');
-                                                submitButton.setAttribute('disabled', 'true');
-                                            }
-                                        }
-                                    });
-                                </script>
                                 <label class="checkbox">
                                     <input type="checkbox" name="terms">
                                     I agree to the <a id="terms">terms and conditions</a>
