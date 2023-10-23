@@ -24,12 +24,11 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data.message);
-                alert(data.message);
+                console.log(data.message); 
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error sending coordinates to the server');
+                // alert('Error sending coordinates to the server');
             });
         }
 
@@ -44,10 +43,10 @@
                 sendCoordinatesToServer(latitude, longitude);
             }, function(error) {
                 console.error('Error getting location:', error);
-                alert('Error getting location. Please allow geolocation access.');
+                // alert('Error getting location. Please allow geolocation access.');
             });
         } else {
-            alert("Geolocation is not available in this browser.");
+            // alert("Geolocation is not available in this browser.");
         }
   </script>
 </head>
@@ -333,7 +332,7 @@
                                             class="mdi mdi-eye"></i></span>
                                 </button>
                                 <button class="button is-small is-danger"
-                                    onclick="deleteCarConfirmation()" type="button">
+                                    onclick="deleteRideConfirmation('<%= UserRideRequests[i].id %>')" type="button">
                                     <span class="icon"><i
                                             class="mdi mdi-trash-can"></i></span>
                                 </button>
@@ -342,26 +341,43 @@
                     </tr>
                     <!-- Car Details Modal -->
                     <script>
-                        const deleteCarConfirmation = () => {
 
-                            Swal.fire({
-                                title: `Are you sure, You Want to delete?`,
-                                text: "You won't be able to revert this!",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Yes, delete it!'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'Your Car has been deleted.',
-                                        'success'
-                                    )
-                                }
-                            })
-                        }
+                      const deleteRideConfirmation = (id) => {
+                      console.log("Ride ID: " + id);   
+                                                        fetch(`/api/ride-request/delete/${id}`, {
+                                                            method: 'GET',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                                // You might need to include additional headers here if required
+                                                            },
+                                                        })
+                                                    .then(response => {
+                            
+
+                                                        if (!response.ok) {
+                                                            throw new Error('Network response was not ok');
+                                                        }
+                                                        return response.json();
+                                                    })
+                                                    .then(data => {
+                                                        // Handle success
+                                                        Swal.fire(
+                                                            'Deleted!',
+                                                            'Ride Request Canceled.',
+                                                            'success'
+                                                        );
+                                                    })
+                                                    .catch(error => {
+                                                        // Handle error
+                                                        console.error('There was a problem with the fetch operation:', error);
+                                                        Swal.fire(
+                                                            'Error!',
+                                                            'There was an error Cancelling your Ride Request.',
+                                                            'error'
+                                                        );
+                                                    });
+                                                        }
+                                                    
                     </script>
                     <% } %>
 
@@ -443,7 +459,6 @@
   const noridefrom6to18DOM = document.getElementById('noridefrom6to18')
 
   const currentTime = new Date().getHours();
-  console.log(currentTime)
 
   function calculateTimeDifference(inputDate) {
       // Convert the input date to a JavaScript Date object
@@ -525,7 +540,7 @@
       const time1Seconds = time1Parts[0] * 3600 + time1Parts[1] * 60 + time1Parts[2];
       const time2Seconds = time2Parts[0] * 3600 + time2Parts[1] * 60 + time2Parts[2];
       const timeDifferenceSeconds = Math.abs(time2Seconds - time1Seconds);
-      console.log(timeDifferenceSeconds)
+
       const hours = Math.floor(timeDifferenceSeconds / 3600);
       const minutes = Math.floor((timeDifferenceSeconds % 3600) / 60);
       const seconds = timeDifferenceSeconds % 60;
@@ -534,7 +549,6 @@
       let dur = 3600 * time2Parts[0]
       let percentage =  timeDifferenceSeconds / dur * 100
 
-      console.log(percentage.toFixed(2))
       return {
         timeDifference,
         percentage

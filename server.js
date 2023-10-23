@@ -126,8 +126,8 @@ let destination_locations = [];
 
 const demLocation = {
   id: 1,
-  name: 'Res 1',
-  addressline1: '123 Main Street',
+  name: 'West Houst',
+  addressline1: 'Kamagugu',
   addressline2: 'Apt 4B',
   town_city: 'Springfield',
   province: 'IL',
@@ -136,8 +136,8 @@ const demLocation = {
 };
 const demLocation1 = {
   id: 2,
-  name: 'Res 2',
-  addressline1: '456 Oak Avenue',
+  name: 'Ilanaga Holdings',
+  addressline1: 'West Acres',
   addressline2: 'Unit 8',
   town_city: 'Cedarville',
   province: 'CA',
@@ -146,8 +146,8 @@ const demLocation1 = {
 };
 const demLocation2 = {
   id: 3,
-  name: 'Res 3',
-  addressline1: '789 Elm Street',
+  name: 'Mbombela Home',
+  addressline1: 'Mataffin',
   addressline2: '',
   town_city: 'Mapleton',
   province: 'NY',
@@ -218,6 +218,7 @@ function calculateDistance({ lat: lat1, lon: lon1 }, { lat: lat2, lon: lon2 }) {
 
   return distance; // Distance in kilometers
 }
+
 // START OF RIDE REQUESTS
 app.get('/api/ride-request/accept/:req_id', (req, res) => {
   if (req.session.user) {
@@ -265,6 +266,28 @@ app.get('/api/ride-request/opened/:req_id', (req, res) => {
   }else{res.redirect('/auth/login')}
 });
 
+app.get('/api/ride-request/delete/:id', (req, res) => {
+  console.log("I am on Delete for RideRequest")
+  const id = parseInt(req.params.id);
+  // Find the index of the car with the specified plate
+  console.log("Ride ID:",id)
+
+  const rideRequestIndex = rideRequests.findIndex(ride => {
+    console.log(ride.id ,   id)
+    return ride.id === id
+  });
+  
+  if (rideRequestIndex !== -1) {
+    // Car found, remove it from the array
+    const deletedRide = rideRequests.splice(rideRequestIndex, 1)[0];
+    console.log(deletedRide);
+    res.json({ success: true, deletedRide });
+  } else {
+    // Car not found
+    res.status(404).json({ success: false, message: 'Ride Request Not found' });
+  }
+});
+
 app.post('/api/ride-request', (req, res) => {
   const User = req.session.user;
   console.log("New Ride Request Incoming ", req.body)
@@ -296,7 +319,7 @@ app.post('/api/ride-request', (req, res) => {
           requesterObject: User,
         };
 
-        console.log(newRideRequest);
+        console.log("Ride Request =>:", newRideRequest);
         rideRequests.push(newRideRequest);
       } else {
         console.error('Seats property is undefined for the last available car.');

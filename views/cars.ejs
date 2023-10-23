@@ -71,7 +71,7 @@
                                                         <th>Name</th>
                                                         <th>Plate</th>
                                                         <th>Status</th>
-                                                        <th>Destination Assigned</th>
+                                                      
                                                         <th>Condition</th>
                                                         <th></th>
                                                     </tr>
@@ -93,11 +93,7 @@
                                                         <td data-label="Name"><%= cars[i].name %></td>
                                                         <td data-label="Company"><%= cars[i].plate %></td>
                                                         <td data-label="City"><%= cars[i].status %></td>
-                                                        <td data-label="destination">
-                                                            <%= cars[i].destination.name %>, 
-                                                            <%= cars[i].destination.addressline1 %>, 
-                                                            <%= cars[i].destination.addressline2 %>
-                                                        </td>
+                                                        
                                                         <td data-label="Condition">
                                                             <small class="has-text-grey is-abbr-like"
                                                                 title="Oct 25, 2020"><%= cars[i].condition %></small>
@@ -115,6 +111,7 @@
                                                     </tr>
                                                     <!-- Car Details Modal -->
                                                     <script>
+                                                        
                                                         const deleteCarConfirmation = (plate) => {
                                                         
                                                         fetch(`/api/cars/delete/${plate}`, {
@@ -150,6 +147,7 @@
                                                         );
                                                     });
                                                         }
+                                                    
                                                     </script>
                                                     <% } %>
                                                 </tbody>
