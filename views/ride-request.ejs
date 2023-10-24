@@ -90,37 +90,58 @@
                                                                 <span class="icon"><i
                                                                         class="mdi mdi-eye"></i></span>
                                                             </button> -->
+
                                                             <button class="button is-small is-danger"
-                                                                onclick="deleteCarConfirmation()" type="button">
+                                                                onclick="deleteRideConfirmation('<%= UserRideRequests[i].id %>')" type="button">
                                                                 <span class="icon"><i
-                                                                        class="mdi mdi-trash-can"></i></span>
+                                                                        class="mdi mdi-trash-can"></i></span><%= UserRideRequests[i].id %>
                                                             </button>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <!-- Car Details Modal -->
+
+                                                
+
                                                 <script>
-                                                    const deleteCarConfirmation = () => {
-                            
-                                                        Swal.fire({
-                                                            title: `Are you sure, You Want to delete?`,
-                                                            text: "You won't be able to revert this!",
-                                                            icon: 'warning',
-                                                            showCancelButton: true,
-                                                            confirmButtonColor: '#3085d6',
-                                                            cancelButtonColor: '#d33',
-                                                            confirmButtonText: 'Yes, delete it!'
-                                                        }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                Swal.fire(
-                                                                    'Deleted!',
-                                                                    'Your Car has been deleted.',
-                                                                    'success'
-                                                                )
-                                                            }
+
+                                                    const deleteRideConfirmation = (id) => {
+                                                        
+                                                        console.log("Request ID:", id )
+                                                        fetch(`/api/ride-request/delete/${id}`, {
+                                                            method: 'GET',
+                                                            headers: {
+                                                                'Content-Type': 'application/json',
+                                                                // You might need to include additional headers here if required
+                                                            },
                                                         })
-                                                    }
-                                                </script>
+                                                    .then(response => {
+                            
+
+                                                        if (!response.ok) {
+                                                            throw new Error('Network response was not ok');
+                                                        }
+                                                        return response.json();
+                                                    })
+                                                    .then(data => {
+                                                        // Handle success
+                                                        Swal.fire(
+                                                            'Deleted!',
+                                                            'Ride Request Canceled.',
+                                                            'success'
+                                                        );
+                                                    })
+                                                    .catch(error => {
+                                                        // Handle error
+                                                        console.error('There was a problem with the fetch operation:', error);
+                                                        Swal.fire(
+                                                            'Error!',
+                                                            'There was an error Cancelling your Ride Request.',
+                                                            'error'
+                                                        );
+                                                    });
+                                                        }
+                                                    </script>
                                                 <% } %>
                             
                                             </tbody>
